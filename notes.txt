@@ -1,0 +1,2 @@
+- specification structuring engine created including pydantic models and the transformer to output clean json for the frontend
+- for ai team (uroosh) please try to match your json output keys to these model names or if you have any sample raw text i can workaround on that
