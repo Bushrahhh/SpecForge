@@ -8,7 +8,7 @@ export default function Dashboard() {
       {/* Top Navigation Bar */}
       <header className="mb-6 bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-xl px-6 py-4 flex justify-between items-center sticky top-4 z-50">
         <div className="flex items-center gap-4">
-           <div className="h-8 w-8 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-violet-500/20">S</div>
+           <div className="h-8 w-8 bg-gradient-to-br from-orange-600 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/20">S</div>
            <h1 className="text-xl font-bold text-slate-100 tracking-tight">Project <span className="text-slate-600 mx-1">/</span> Specifications</h1>
         </div>
         <div className="flex items-center gap-3">
