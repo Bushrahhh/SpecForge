@@ -147,3 +147,52 @@ Tests cover: full input/output contract, node deduplication, edges referencing o
 ## Integration Note
 
 This module is designed to be **imported by a FastAPI backend** later. No FastAPI or server code is included; the API is purely `build_graph`, `to_mermaid`, and `validate_graph`.
+
+
+
+---------------------------------------
+
+# SpecForge – Core LLM Engine Module
+
+Standalone Python module for the **Core LLM Engine** (SpecForge MVP). It interfaces with Large Language Models to transform raw user project descriptions into structured, validated technical specifications.
+
+**Scope:** Week 1 MVP – Prompt Engineering, Scope Locking, and Structured Output.  
+**Constraints:** Python 3.10+, `openai`, `pydantic`, `python-dotenv`.
+
+## 🛠 Technical Architecture
+The engine utilizes **Structured Outputs** to bridge the gap between non-deterministic AI text and deterministic software systems. By enforcing a Pydantic schema at the API level, we eliminate the need for manual parsing or regex cleaning.
+
+### The Scope Lock (Pydantic Models)
+The module defines the following internal structure to ensure data integrity:
+* **`Entity`**: Captures system objects and their specific attributes.
+* **`TechStack`**: Categorizes suggestions into Frontend, Backend, Database, and DevOps.
+* **`ProjectSpec`**: The master container for all generated requirements.
+
+## 📥 Input Contract
+The module expects a raw natural language string.
+**Example:** `"A university portal where students can upload assignments and teachers can grade them with AI feedback."`
+
+## 📤 Output Contract
+The module returns a strictly typed `ProjectSpec` object.
+
+| Key | Type | Description |
+| :--- | :--- | :--- |
+| `functional_requirements` | `list[str]` | Actionable features (e.g., "Allow PDF uploads"). |
+| `non_functional_requirements` | `list[str]` | Quality attributes (e.g., "Latency < 200ms"). |
+| `entities` | `list[Entity]` | List of objects with `name` and `attributes`. |
+| `tech_stack_suggestions` | `TechStack` | Recommended stack based on project complexity. |
+
+### Example Output Data
+```json
+{
+  "functional_requirements": ["User authentication", "Assignment submission"],
+  "entities": [
+    {"name": "User", "attributes": ["id", "email", "role"]},
+    {"name": "Assignment", "attributes": ["title", "file_path", "grade"]}
+  ],
+  "tech_stack_suggestions": {
+    "frontend": ["React", "Tailwind"],
+    "backend": ["FastAPI"],
+    "database": ["PostgreSQL"]
+  }
+}
